@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vitor Cunha — Paintings</title>
   <meta name="description" content="Paintings by Vitor Cunha">
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css?v=7">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css?v=8">
 </head>
 <body class="page">
   <!-- Fixed top banner (never moves) -->
@@ -76,7 +76,6 @@
       const mosaicLinks = Array.from(document.querySelectorAll('.vc-thumb'));
       if(!bigImgs.length) return;
 
-      // Create overlay once
       const overlay = document.createElement('div');
       overlay.className = 'vc-lightbox';
       overlay.innerHTML = `
@@ -94,7 +93,6 @@
       const btnPrev = overlay.querySelector('.vc-lb-prev');
       const btnNext = overlay.querySelector('.vc-lb-next');
 
-      // Map ids to index for mosaic jumps
       const idToIndex = {};
       document.querySelectorAll('.vc-piece').forEach((el, i) => idToIndex[el.id] = i);
 
@@ -123,7 +121,7 @@
         a.addEventListener('click', () => {
           const id = a.getAttribute('href').slice(1);
           const i = idToIndex[id] ?? 0;
-          setTimeout(()=> show(i), 0); // open after anchor jump
+          setTimeout(()=> show(i), 0);
         });
       });
 
