@@ -1,147 +1,111 @@
-/* ===== Minimal site — Bodoni Moda everywhere, white bg, fixed title ===== */
-/* Always white background. No rounded boxes. Smooth anchors. */
+/* ===== Minimal site — Bodoni Moda everywhere, fixed banner, no overlap ===== */
+/* Banner: must stay put, mustard yellow (70% transparent = 30% opacity). */
 
 :root{
   --bg:#ffffff;
   --fg:#000000;
   --muted:#5a5a5a;
-  --line:#e6e6e6;
-  --strong:#d9d9d9;
-
-  /* Fixed title block metrics */
-  --title-top: 22px;
-  --title-left: 22px;
-  --title-size-min: 42px;
-  --title-size-vw: 7vw;
-  --title-size-max: 60px;   /* smaller than before */
-  --header-pad: 165px;      /* space to clear the fixed title */
+  --line:#000000;          /* lines are black in your sketch */
+  --banner-h: 200px;       /* total height of the fixed banner area */
+  --title-top: 18px;       /* padding from banner top to first line */
+  --title-left: 22px;      /* padding from left edge */
+  --title-size: 72px;      /* base title size; adjust here */
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
-html{scroll-padding-top:var(--header-pad); scroll-behavior:smooth;}
+html{scroll-padding-top:var(--banner-h); scroll-behavior:smooth;}
 body{
   margin:0;
-  background:#ffffff !important; /* force white */
-  color:#000000 !important;       /* force black */
+  background:#ffffff !important;
+  color:#000000 !important;
   font-family: "Bodoni Moda", ui-serif, Georgia, "Times New Roman", Times, serif;
   line-height:1.35;
 }
 a{color:inherit;text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* Screen-reader only */
 .sr-only{
   position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* ===== Fixed Title (top-left, two-line, smaller, no box) ===== */
-.vc-header{ position:fixed; inset:0 0 auto 0; height:0; z-index:10; }
-.vc-name{
-  position:fixed; top:var(--title-top); left:var(--title-left); z-index:11;
-  line-height:.95; text-decoration:none;
+/* ===== Fixed banner (never moves across pages) ===== */
+.vc-banner{
+  position:fixed; top:0; left:0; right:0; height:var(--banner-h); z-index:10;
+  background: rgba(212,160,23,0.3); /* mustard (#d4a017) at ~30% opacity */
+  border-top:2px solid var(--line);
+  border-bottom:2px solid var(--line);
 }
-.vc-first,.vc-last{
+.vc-title{
+  position:absolute; top:var(--title-top); left:var(--title-left);
+  text-decoration:none; line-height:.95;
+}
+.vc-first, .vc-last{
   display:block; font-weight:800; letter-spacing:.01em;
-  font-size:clamp(var(--title-size-min), var(--title-size-vw), var(--title-size-max));
+  font-size: var(--title-size);
+}
+/* Smaller titles on narrow screens */
+@media (max-width:900px){
+  :root{ --banner-h: 160px; --title-size: 52px; --title-top: 14px; }
 }
 
-/* Keep content below the fixed title */
-.page{ padding-top:var(--header-pad); }
-.page--landing{ }
-.page--edge-to-edge{ }
+/* Keep all page content below the fixed banner */
+.page{ padding-top: var(--banner-h); }
 
-/* ===== Landing split ===== */
-.vc-landing{
-  min-height:calc(100svh - var(--header-pad));
+/* ===== Landing layout ===== */
+.page--landing .vc-landing{
+  min-height: calc(100svh - var(--banner-h));
   display:grid; grid-template-columns:1fr 1fr;
-  border-top:1px solid var(--strong);
-  border-bottom:1px solid var(--strong);
 }
-@media (max-width:900px){ .vc-landing{ grid-template-columns:1fr; min-height:60svh; } }
+@media (max-width:900px){ .page--landing .vc-landing{ grid-template-columns:1fr; min-height:60svh; } }
 
 .vc-panel{
   position:relative;
   display:flex; align-items:center; justify-content:center;
   color:inherit;
-  border-right:1px solid var(--strong);
+  border-right:1px solid rgba(0,0,0,.15);
+  border-bottom:1px solid rgba(0,0,0,.15);
 }
 .vc-panel:last-child{ border-right:none }
-.vc-left::before, .vc-right::before{
-  content:""; position:absolute; inset:24px; border:1px solid var(--line);
-  pointer-events:none;
-}
 .vc-link{
   font-weight:700; letter-spacing:.01em;
-  /* Clearly smaller than the site title */
-  font-size:clamp(22px, 5vw, 56px);
+  font-size: clamp(24px, 5vw, 54px); /* clearly smaller than the title */
   padding:.15em .4em;
 }
 
 /* ===== Paintings — 70/30 layout ===== */
 .vc-painting-layout{
-  display:grid;
-  grid-template-columns:70% 30%;
-  gap:0;
-  border-top:1px solid var(--strong);
+  display:grid; grid-template-columns:70% 30%; gap:0;
+  border-top:1px solid rgba(0,0,0,.15);
 }
 @media (max-width:900px){
   .vc-painting-layout{ grid-template-columns:1fr; }
 }
 
-.vc-main{
-  padding:0 0 40px 0;
-}
-.vc-piece{
-  margin:0; border-bottom:1px solid var(--line);
-  padding:0 0 14px 0;
-}
+.vc-main{ padding:0 0 40px 0; }
+.vc-piece{ margin:0; border-bottom:1px solid rgba(0,0,0,.1); padding:0 0 14px 0; }
 .vc-piece img{
   display:block; width:100%; height:auto; object-fit:cover;
   background:#f7f7f7; cursor:zoom-in;
 }
-.vc-piece figcaption{
-  padding:10px 12px; font-size:16px; color:var(--muted);
-}
+.vc-piece figcaption{ padding:10px 12px; font-size:16px; color:var(--muted); }
 
-/* Right: sticky mosaic */
-.vc-mosaic{
-  position:relative; border-left:1px solid var(--strong);
-}
+.vc-mosaic{ position:relative; border-left:1px solid rgba(0,0,0,.15); }
 @media (max-width:900px){ .vc-mosaic{ border-left:none; } }
-
 .vc-mosaic-grid{
-  position:sticky; top:calc(var(--title-top) + (var(--title-size-min)));
-  padding:12px; display:grid; gap:12px;
-  grid-template-columns:repeat(2, 1fr);
+  position:sticky; top: calc(var(--title-top) + var(--title-size));
+  padding:12px; display:grid; gap:12px; grid-template-columns:repeat(2, 1fr);
 }
-.vc-thumb{
-  display:block; border:1px solid var(--line);
-}
-.vc-thumb img{
-  display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;
-}
+.vc-thumb{ display:block; border:1px solid rgba(0,0,0,.12); }
+.vc-thumb img{ display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; }
 
 /* ===== Research list ===== */
 .vc-research-wrap{ padding: 8px 18px 28px; }
-.vc-research{
-  max-width:1100px; margin:0 auto;
-  border-top:1px solid var(--strong);
-}
-.paper{
-  padding:18px 0;
-  border-bottom:1px solid var(--line);
-}
-.paper-title{
-  margin:0 0 6px 0;
-  /* Large, but below the site title */
-  font-size:clamp(24px, 3.6vw, 40px);
-  line-height:1.15; font-weight:700;
-}
-.paper-meta{
-  display:flex; gap:18px; flex-wrap:wrap; font-size:18px;
-}
+.vc-research{ max-width:1100px; margin:0 auto; border-top:1px solid rgba(0,0,0,.15); }
+.paper{ padding:18px 0; border-bottom:1px solid rgba(0,0,0,.1); }
+.paper-title{ margin:0 0 6px 0; font-size: clamp(24px, 3.6vw, 40px); line-height:1.15; font-weight:700; }
+.paper-meta{ display:flex; gap:18px; flex-wrap:wrap; font-size:18px; }
 .paper-journal{ color:var(--muted); }
 .muted{ color:var(--muted); }
 
