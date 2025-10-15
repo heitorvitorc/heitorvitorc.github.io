@@ -1,4 +1,4 @@
-/* ===== Minimal site — fixed mustard banner, no overlap, Bodoni everywhere ===== */
+/* ===== Minimal site — fixed light-gray banner, no overlap, Bodoni everywhere ===== */
 
 :root{
   --bg:#ffffff;
@@ -31,11 +31,10 @@ a:hover{text-decoration:underline}
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* ===== Fixed banner (mustard at 70% opacity), never scrolls ===== */
+/* ===== Fixed banner (very light gray), never scrolls ===== */
 .vc-banner{
   position:fixed; top:0; left:0; right:0; height:var(--banner-h); z-index:1000;
-  /* 70% opacity (i.e., 0.7 alpha) so mustard is clearly visible */
-  background: rgba(212,160,23,0.7);
+  background:#f2f2f2;              /* very light gray */
   border-top:2px solid var(--line);
   border-bottom:2px solid var(--line);
 }
@@ -89,13 +88,14 @@ a:hover{text-decoration:underline}
 }
 .vc-piece figcaption{ padding:10px 12px; font-size:16px; color:var(--muted); }
 
+/* Right: sticky mosaic – keep it below the banner, never sliding under it */
 .vc-mosaic{ position:relative; border-left:1px solid rgba(0,0,0,.15); }
 @media (max-width:900px){ .vc-mosaic{ border-left:none; } }
 .vc-mosaic-grid{
   position:sticky;
-  /* pin the mosaic a bit below the banner so it never hides under it */
-  top: calc(var(--banner-h) + 10px);
+  top: calc(var(--banner-h) + 12px);   /* sticks just below the banner */
   padding:12px; display:grid; gap:12px; grid-template-columns:repeat(2, 1fr);
+  background:#fff;                      /* solid bg to avoid any see-through */
 }
 .vc-thumb{ display:block; border:1px solid rgba(0,0,0,.12); }
 .vc-thumb img{ display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; }
@@ -132,7 +132,6 @@ a:hover{text-decoration:underline}
 .vc-lb-close{ right:16px; }
 .vc-lb-prev{ left:16px; top:50%; transform:translateY(-50%); font-size:42px; }
 .vc-lb-next{ right:16px; top:50%; transform:translateY(-50%); font-size:42px; }
-.vc-lb-close:focus, .vc-lb-prev:focus, .vc-lb-next:focus{ outline:2px solid rgba(255,255,255,.5); outline-offset:2px; }
 
 /* ===== Responsive tweaks ===== */
 @media (max-width:900px){
