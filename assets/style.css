@@ -13,7 +13,7 @@
   --title-left: 22px;
   --title-size-min: 42px;
   --title-size-vw: 7vw;
-  --title-size-max: 96px;   /* smaller than before */
+  --title-size-max: 80px;   /* smaller than before */
   --header-pad: 165px;      /* space to clear the fixed title */
 }
 
