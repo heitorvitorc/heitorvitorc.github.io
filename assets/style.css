@@ -1,153 +1,122 @@
-/* ==== Base – minimal, geometric, responsive ==== */
+/* ====== Vitor Cunha — Minimal Site Styles ====== */
+/* White background, black text, neutral system font (not round) */
+
 :root{
-  --bg:#ffffff;           /* switch to #0b0c10 for dark */
-  --fg:#111111;
-  --muted:#8a8a8a;
-  --line:#e5e5e5;
-  --line-strong:#d3d3d3;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#0b0c10; --fg:#f2f2f2; --muted:#a3a3a3; --line:#14161a; --line-strong:#1b1e23; }
+  --bg:#ffffff;
+  --fg:#000000;
+  --muted:#5c5c5c;
+  --line:#e6e6e6;
+  --strong:#d9d9d9;
+  --header-h:80px; /* fixed header height */
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
-html{scroll-padding-top:72px}
+html{scroll-padding-top:var(--header-h)}
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
   background:var(--bg);
   color:var(--fg);
+  font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  line-height:1.35;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Screen-reader only utility */
+.sr-only{
+  position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* Subtle geometric background grid */
-body::before{
-  content:"";
-  position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:
-    linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 48px 48px;
-  opacity:.5;
-}
-
-/* ==== Header (fixed, centered name) ==== */
+/* ===== Header (fixed, centered name; never scrolls) ===== */
 .vc-header{
-  position:sticky; top:0; z-index:5;
+  position:fixed; inset:0 0 auto 0; height:var(--header-h); z-index:10;
   display:flex; align-items:center; justify-content:center;
-  height:72px;
-  border-bottom:1px solid var(--line-strong);
-  backdrop-filter:saturate(140%) blur(2px);
-  background:color-mix(in oklab, var(--bg), transparent 20%);
+  background:var(--bg);
+  border-bottom:1px solid var(--strong);
 }
 .vc-name{
-  display:inline-block;
+  display:inline-block; padding:10px 18px;
+  border:1px solid var(--strong); border-radius:999px;
   font-weight:700; letter-spacing:.02em;
-  text-transform:none; text-decoration:none;
-  color:inherit; padding:10px 14px;
-  border:1px solid var(--line-strong);
-  border-radius:999px;
+  background:#fff; /* keeps crisp on white */
 }
 
-/* ==== Split landing (left/right) ==== */
+/* ===== Page containers ===== */
+.page{ padding-top:var(--header-h); }
+.page--landing{ /* landing has no extra chrome */ }
+.page--edge-to-edge{ padding-top:var(--header-h); }
+
+/* ===== Landing split ===== */
 .vc-landing{
-  position:relative; z-index:1;
-  min-height:calc(100svh - 72px);
+  min-height:calc(100svh - var(--header-h));
   display:grid; grid-template-columns:1fr 1fr;
-  border-bottom:1px solid var(--line-strong);
+  border-top:1px solid var(--strong);
+  border-bottom:1px solid var(--strong);
 }
-@media (max-width:900px){ .vc-landing{ grid-template-columns:1fr; min-height:60svh; } }
+@media (max-width:900px){ .vc-landing{ grid-template-columns:1fr; } }
 
 .vc-panel{
+  position:relative;
   display:flex; align-items:center; justify-content:center;
-  position:relative; text-decoration:none; color:inherit;
-  border-right:1px solid var(--line-strong);
-  transition:background .25s ease, transform .25s ease;
+  text-decoration:none; color:inherit;
+  border-right:1px solid var(--strong);
 }
 .vc-panel:last-child{ border-right:none }
-.vc-panel:hover{ background:color-mix(in oklab, var(--bg), transparent 85%); transform:translateY(-1px) }
-.vc-link{
-  font-size: clamp(28px, 5.8vw, 64px);
-  font-weight:600; letter-spacing:.01em;
-  position:relative; padding:.2em .5em;
-}
-.vc-link::after{
-  content:""; position:absolute; left:0; right:0; bottom:-8px; height:1px;
-  background:var(--fg); opacity:.15; transition:opacity .2s ease;
-}
-.vc-panel:hover .vc-link::after{ opacity:.45 }
-
-/* Side accents (thin geometric lines) */
 .vc-left::before, .vc-right::before{
-  content:""; position:absolute; inset:18px; border:1px solid var(--line);
+  content:""; position:absolute; inset:24px; border:1px solid var(--line);
   pointer-events:none;
 }
-.vc-left::after, .vc-right::after{
-  content:""; position:absolute; top:50%; left:18px; right:18px; height:1px;
-  background:var(--line); transform:translateY(-50%);
-  opacity:.6;
+.vc-link{
+  font-size:clamp(28px, 6vw, 72px);
+  font-weight:600; letter-spacing:.01em;
+  padding:.15em .4em;
 }
 
-/* ==== Sections ==== */
-.vc-section{
-  position:relative; z-index:1;
-  padding:56px min(6vw, 64px);
-  background:var(--bg);
+/* ===== Paintings — full-bleed grid (no margins) ===== */
+.vc-gallery-wrap{ /* no outer margin/padding; only respect header */
+  padding-top:var(--header-h);
 }
-.vc-section + .vc-section{ border-top:1px solid var(--line-strong) }
-
-.vc-section > h2{
-  margin:0 0 20px;
-  font-size: clamp(22px, 2.6vw, 28px);
-  font-weight:600;
-  letter-spacing:.01em;
-}
-
-/* Research cards – minimal */
-.vc-grid{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
-}
-@media (max-width:1200px){ .vc-grid{ grid-template-columns:repeat(3,1fr) } }
-@media (max-width:900px){ .vc-grid{ grid-template-columns:repeat(2,1fr) } }
-@media (max-width:600px){ .vc-grid{ grid-template-columns:1fr } }
-
-.vc-card{
-  border:1px solid var(--line-strong);
-  padding:18px; border-radius:8px; background:color-mix(in oklab, var(--bg), transparent 10%);
-}
-.vc-card h3{ margin:0 0 6px; font-size:16px; font-weight:600 }
-.vc-card p{ margin:0 0 6px; color:var(--muted); font-size:13px }
-.vc-card a{ color:inherit }
-.vc-card a:hover{ text-decoration:underline }
-
-/* Paintings grid – large tiles, Peggy Kuiper vibe */
 .vc-gallery{
-  display:grid; gap:18px;
+  display:grid; gap:0;
   grid-template-columns:repeat(3, 1fr);
 }
-@media (max-width:1200px){ .vc-gallery{ grid-template-columns:repeat(2, 1fr) } }
+@media (max-width:1200px){ .vc-gallery{ grid-template-columns:repeat(2,1fr) } }
 @media (max-width:700px){ .vc-gallery{ grid-template-columns:1fr } }
 
-.vc-tile{
-  margin:0; position:relative; overflow:hidden;
-  border:1px solid var(--line-strong); border-radius:8px;
-  background:color-mix(in oklab, var(--bg), transparent 10%);
+.vc-tile{ margin:0; border-top:1px solid var(--strong); border-right:1px solid var(--strong); }
+.vc-tile:nth-child(3n){ border-right:none; }
+@media (max-width:1200px){
+  .vc-tile{ border-right:1px solid var(--strong); }
+  .vc-tile:nth-child(2n){ border-right:none; }
 }
-.vc-tile img{
-  display:block; width:100%; height:auto; aspect-ratio: 4 / 3; object-fit: cover;
-  transform:translateZ(0); transition:transform .4s ease, opacity .3s ease;
+@media (max-width:700px){
+  .vc-tile{ border-right:none; }
 }
-.vc-tile:hover img{ transform:scale(1.02) }
-.vc-tile figcaption{
-  position:absolute; left:0; right:0; bottom:0;
-  padding:12px 14px; font-size:13px; color:var(--fg);
-  background:linear-gradient(to top, color-mix(in oklab, var(--bg), transparent 20%) 0%, transparent 90%);
-  opacity:0; transition:opacity .25s ease;
-}
-.vc-tile:hover figcaption{ opacity:1 }
 
-/* Footer */
-.vc-footer{
-  padding:28px min(6vw, 64px);
-  color:var(--muted); border-top:1px solid var(--line-strong);
-  text-align:center;
+.vc-tile img{
+  display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;
 }
+.vc-tile figcaption{
+  padding:10px 12px; font-size:14px; border-top:1px solid var(--line);
+}
+
+/* ===== Research list ===== */
+.vc-research-wrap{
+  padding: calc(var(--header-h) + 8px) 18px 28px;
+}
+.vc-research{
+  max-width:1100px; margin:0 auto;
+  border-top:1px solid var(--strong);
+}
+.paper{ padding:18px 0; border-bottom:1px solid var(--line); }
+.paper-title{
+  margin:0 0 6px 0;
+  font-size:clamp(20px, 3.4vw, 30px);
+  line-height:1.25; font-weight:700;
+}
+.paper-meta{ display:flex; gap:18px; flex-wrap:wrap; font-size:16px; }
+.paper-authors{ }
+.paper-journal{ color:var(--muted); }
+.muted{ color:var(--muted); }
