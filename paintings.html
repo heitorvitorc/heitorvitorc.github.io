@@ -6,7 +6,7 @@
   <title>Vitor Cunha — Paintings</title>
   <meta name="description" content="Paintings by Vitor Cunha">
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css?v=5">
+  <link rel="stylesheet" href="assets/style.css?v=6">
 </head>
 <body class="page page--edge-to-edge">
   <!-- Fixed Title (top-left, two-line) -->
@@ -17,43 +17,64 @@
     </a>
   </header>
 
-  <!-- Full-bleed gallery (no outer margins; captions below) -->
-  <main class="vc-gallery-wrap" role="main" aria-label="Paintings">
-    <section class="vc-gallery" aria-labelledby="gallery-title">
-      <h1 id="gallery-title" class="sr-only">Paintings</h1>
-
-      <figure class="vc-tile">
+  <!-- 70/30 layout -->
+  <main class="vc-painting-layout" role="main" aria-label="Paintings">
+    <!-- Left: large works (70%) -->
+    <section class="vc-main" aria-label="Large works">
+      <article id="p1" class="vc-piece">
         <img src="assets/paintings/Distinct_Stereotypes_and_the_Chash_2025.jpg" alt="Permutation — Oil on canvas" loading="lazy">
         <figcaption>Permutation — Oil on canvas</figcaption>
-      </figure>
+      </article>
 
-      <figure class="vc-tile">
+      <article id="p2" class="vc-piece">
         <img src="assets/paintings/Golden_Gaze_Silent_Echo_2025.jpg" alt="Transportation — Acrylic on cardboard" loading="lazy">
         <figcaption>Transportation — Acrylic on cardboard</figcaption>
-      </figure>
+      </article>
 
-      <figure class="vc-tile">
+      <article id="p3" class="vc-piece">
         <img src="assets/paintings/I_Permutare_2025.jpg" alt="Resting — Oil on canvas" loading="lazy">
         <figcaption>Resting — Oil on canvas</figcaption>
-      </figure>
+      </article>
 
-      <figure class="vc-tile">
+      <article id="p4" class="vc-piece">
         <img src="assets/paintings/II_Transportation_2025.jpg" alt="Flux — Oil on paper" loading="lazy">
         <figcaption>Flux — Oil on paper</figcaption>
-      </figure>
+      </article>
 
-      <figure class="vc-tile">
+      <article id="p5" class="vc-piece">
         <img src="assets/paintings/Cemiterio_2025.jpg" alt="Phase — Acrylic on paper" loading="lazy">
         <figcaption>Phase — Acrylic on paper</figcaption>
-      </figure>
+      </article>
     </section>
+
+    <!-- Right: sticky mosaic (30%) -->
+    <aside class="vc-mosaic" aria-label="All paintings">
+      <nav class="vc-mosaic-grid">
+        <a href="#p1" class="vc-thumb" aria-label="Permutation">
+          <img src="assets/paintings/Distinct_Stereotypes_and_the_Chash_2025.jpg" alt="">
+        </a>
+        <a href="#p2" class="vc-thumb" aria-label="Transportation">
+          <img src="assets/paintings/Golden_Gaze_Silent_Echo_2025.jpg" alt="">
+        </a>
+        <a href="#p3" class="vc-thumb" aria-label="Resting">
+          <img src="assets/paintings/I_Permutare_2025.jpg" alt="">
+        </a>
+        <a href="#p4" class="vc-thumb" aria-label="Flux">
+          <img src="assets/paintings/II_Transportation_2025.jpg" alt="">
+        </a>
+        <a href="#p5" class="vc-thumb" aria-label="Phase">
+          <img src="assets/paintings/Cemiterio_2025.jpg" alt="">
+        </a>
+      </nav>
+    </aside>
   </main>
 
   <!-- Minimal lightbox / zoom (vanilla JS) -->
   <script>
     (function(){
-      const images = Array.from(document.querySelectorAll('.vc-gallery img'));
-      if(!images.length) return;
+      const bigImgs = Array.from(document.querySelectorAll('.vc-piece img'));
+      const mosaicLinks = Array.from(document.querySelectorAll('.vc-thumb'));
+      if(!bigImgs.length) return;
 
       // Create overlay elements once
       const overlay = document.createElement('div');
@@ -73,12 +94,20 @@
       const btnPrev = overlay.querySelector('.vc-lb-prev');
       const btnNext = overlay.querySelector('.vc-lb-next');
 
+      // Map ids to index for mosaic jumps
+      const idToIndex = {};
+      document.querySelectorAll('.vc-piece').forEach((el, i) => idToIndex[el.id] = i);
+
+      function currentIndexFromSrc(src){
+        return bigImgs.findIndex(x => x.src === src);
+      }
+
       let idx = 0;
       function show(i){
-        idx = (i + images.length) % images.length;
-        const fig = images[idx].closest('figure');
-        imgEl.src = images[idx].src;
-        imgEl.alt = images[idx].alt || '';
+        idx = (i + bigImgs.length) % bigImgs.length;
+        const fig = bigImgs[idx].closest('.vc-piece');
+        imgEl.src = bigImgs[idx].src;
+        imgEl.alt = bigImgs[idx].alt || '';
         capEl.textContent = fig ? (fig.querySelector('figcaption')?.textContent || '') : '';
         overlay.classList.add('open');
         document.documentElement.classList.add('vc-no-scroll');
@@ -89,9 +118,19 @@
         imgEl.src = '';
       }
 
-      images.forEach((img, i) => {
+      bigImgs.forEach((img, i) => {
         img.style.cursor = 'zoom-in';
         img.addEventListener('click', () => show(i));
+      });
+
+      mosaicLinks.forEach(a => {
+        a.addEventListener('click', (e) => {
+          // Also open the lightbox after jump
+          const id = a.getAttribute('href').slice(1);
+          const i = idToIndex[id] ?? 0;
+          // let the anchor jump happen first
+          setTimeout(()=> show(i), 0);
+        });
       });
 
       overlay.addEventListener('click', (e)=>{
