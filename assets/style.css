@@ -1,17 +1,16 @@
-/* ===== Minimal, high-contrast, fixed title ===== */
-/* Always white background (no dark-mode following) */
+/* ===== Minimal, high-contrast, fixed title (site-wide Bodoni Moda) ===== */
+/* Always white background (no OS theme). No rounded boxes anywhere. */
 
 :root{
   --bg:#ffffff;
   --fg:#000000;
-  --muted:#5c5c5c;
+  --muted:#5a5a5a;
   --line:#e6e6e6;
   --strong:#d9d9d9;
-  --header-pad: 124px;   /* top padding to clear fixed header block */
-  --title-gap: 10px;
+  --header-pad: 190px;   /* top padding to clear the large, fixed title */
 }
 
-/* Reset / base */
+/* Base */
 *{box-sizing:border-box}
 html,body{height:100%}
 html{scroll-padding-top:var(--header-pad)}
@@ -19,40 +18,40 @@ body{
   margin:0;
   background:#ffffff !important; /* force white */
   color:#000000 !important;       /* force black */
-  font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  font-family: "Bodoni Moda", ui-serif, Georgia, "Times New Roman", Times, serif;
   line-height:1.35;
 }
 a{color:inherit;text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* Screen-reader only utility */
+/* Screen-reader only */
 .sr-only{
   position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* ===== Fixed Title (top-left, two-line) ===== */
+/* ===== Fixed Title (top-left, two-line, BIG, no border/box) ===== */
 .vc-header{
   position:fixed; top:0; left:0; right:0; height:0; z-index:10;
-  /* height is driven by the block, page content clears via --header-pad */
 }
 .vc-name{
-  position:fixed; top:20px; left:20px; z-index:11;
-  display:block; line-height:1.0;
-  text-decoration:none;
+  position:fixed; top:22px; left:22px; z-index:11;
+  line-height:0.95; text-decoration:none;
+  /* No border, no background, no rounded box */
 }
 .vc-first,
 .vc-last{
   display:block;
-  font-family:"Bodoni Moda", ui-serif, Georgia, "Times New Roman", Times, serif; /* display font close to Berlona */
   font-weight:800;
   letter-spacing:0.01em;
+  /* Much bigger than section links */
+  font-size:clamp(56px, 11vw, 150px);
 }
-.vc-first{ font-size: clamp(44px, 8vw, 110px); }
-.vc-last{  font-size: clamp(44px, 8vw, 110px); margin-top: var(--title-gap); }
 
-/* Ensure page content never sits under the fixed title */
-.page{ padding-top: var(--header-pad); }
+/* Ensure content never sits under the fixed title */
+.page{ padding-top:var(--header-pad); }
+.page--landing{ }
+.page--edge-to-edge{ }
 
 /* ===== Landing split ===== */
 .vc-landing{
@@ -66,7 +65,7 @@ a:hover{text-decoration:underline}
 .vc-panel{
   position:relative;
   display:flex; align-items:center; justify-content:center;
-  text-decoration:none; color:inherit;
+  color:inherit;
   border-right:1px solid var(--strong);
 }
 .vc-panel:last-child{ border-right:none }
@@ -75,14 +74,14 @@ a:hover{text-decoration:underline}
   pointer-events:none;
 }
 .vc-link{
-  /* Research / Paintings labels: smaller than title */
-  font-size: clamp(22px, 4.6vw, 56px);
-  font-weight:600; letter-spacing:.01em;
+  font-weight:700; letter-spacing:.01em;
+  /* Clearly smaller than the site title */
+  font-size:clamp(22px, 5vw, 60px);
   padding:.15em .4em;
 }
 
 /* ===== Paintings — full-bleed grid ===== */
-.vc-gallery-wrap{ padding-top:0; } /* page already has top cleared */
+.vc-gallery-wrap{ padding-top:0; }
 .vc-gallery{
   display:grid; gap:0;
   grid-template-columns:repeat(3, 1fr);
@@ -103,16 +102,14 @@ a:hover{text-decoration:underline}
 
 .vc-tile img{
   display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;
-  background:#f7f7f7;
+  background:#f7f7f7; cursor:zoom-in;
 }
 .vc-tile figcaption{
-  padding:10px 12px; font-size:14px; border-top:1px solid var(--line);
+  padding:10px 12px; font-size:16px; border-top:1px solid var(--line);
 }
 
 /* ===== Research list ===== */
-.vc-research-wrap{
-  padding: 8px 18px 28px;
-}
+.vc-research-wrap{ padding: 8px 18px 28px; }
 .vc-research{
   max-width:1100px; margin:0 auto;
   border-top:1px solid var(--strong);
@@ -123,12 +120,37 @@ a:hover{text-decoration:underline}
 }
 .paper-title{
   margin:0 0 6px 0;
-  font-size:clamp(22px, 3.6vw, 36px);  /* large, but below site title */
-  line-height:1.2; font-weight:700;
-  font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  /* Large, but below the site title */
+  font-size:clamp(24px, 3.8vw, 40px);
+  line-height:1.15; font-weight:700;
 }
 .paper-meta{
-  display:flex; gap:18px; flex-wrap:wrap; font-size:16px;
+  display:flex; gap:18px; flex-wrap:wrap; font-size:18px;
 }
 .paper-journal{ color:var(--muted); }
 .muted{ color:var(--muted); }
+
+/* ===== Lightbox (paintings) ===== */
+.vc-no-scroll{ overflow:hidden; }
+.vc-lightbox{
+  position:fixed; inset:0; z-index:9999; display:none;
+  background:rgba(0,0,0,.9);
+}
+.vc-lightbox.open{ display:flex; align-items:center; justify-content:center; }
+.vc-lb-img{
+  max-width:92vw; max-height:86vh; display:block; margin:0 auto;
+  box-shadow:0 0 0 1px rgba(255,255,255,.15);
+}
+.vc-lb-cap{
+  position:fixed; left:0; right:0; bottom:20px; text-align:center;
+  color:#fff; font-size:16px; opacity:.9; padding:6px 12px;
+}
+.vc-lb-close, .vc-lb-prev, .vc-lb-next{
+  position:fixed; top:16px; width:44px; height:44px; line-height:44px;
+  background:transparent; color:#fff; border:none; cursor:pointer;
+  font-size:32px; padding:0; text-align:center;
+}
+.vc-lb-close{ right:16px; }
+.vc-lb-prev{ left:16px; top:50%; transform:translateY(-50%); font-size:42px; }
+.vc-lb-next{ right:16px; top:50%; transform:translateY(-50%); font-size:42px; }
+.vc-lb-close:focus, .vc-lb-prev:focus, .vc-lb-next:focus{ outline:2px solid rgba(255,255,255,.5); outline-offset:2px; }
