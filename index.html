@@ -8,13 +8,14 @@
   <meta name="color-scheme" content="light dark">
   <link rel="stylesheet" href="assets/style.css?v=2">
 </head>
+
 <body>
-  <!-- Fixed header -->
+  <!-- Fixed Header -->
   <header class="vc-header" id="top">
     <a href="#top" class="vc-name" aria-label="Home">Vitor Cunha</a>
   </header>
 
-  <!-- Split landing -->
+  <!-- Landing Split -->
   <section class="vc-landing" aria-label="Landing">
     <a class="vc-panel vc-left" href="#research" aria-label="Go to Research">
       <span class="vc-link">Research</span>
@@ -24,18 +25,17 @@
     </a>
   </section>
 
-  <!-- Research section -->
+  <!-- Research Section -->
   <section id="research" class="vc-section vc-research" aria-labelledby="research-title">
     <h2 id="research-title">Research</h2>
     <div class="vc-grid vc-grid-research">
-      <!-- Replace with your real links (PDF/DOI/arXiv) -->
       <article class="vc-card">
-        <h3>Self‑propelled droplets on wettability gradients</h3>
+        <h3>Self-propelled droplets on wettability gradients</h3>
         <p>Journal (2024)</p>
         <p><a href="#">PDF</a> · <a href="#">DOI</a></p>
       </article>
       <article class="vc-card">
-        <h3>Thin‑film adsorption with long‑range interactions</h3>
+        <h3>Thin-film adsorption with long-range interactions</h3>
         <p>Preprint (2025)</p>
         <p><a href="#">arXiv</a> · <a href="#">Slides</a></p>
       </article>
@@ -45,32 +45,37 @@
         <p><a href="#">DOI</a></p>
       </article>
       <article class="vc-card">
-        <h3>NS‑Korteweg solver</h3>
+        <h3>NS-Korteweg solver</h3>
         <p>Code & docs</p>
         <p><a href="#">GitHub</a> · <a href="#">Docs</a></p>
       </article>
     </div>
   </section>
 
-  <!-- Paintings section (gallery style inspired by Peggy Kuiper—clean tiles, big imagery) -->
+  <!-- Paintings Section -->
   <section id="paintings" class="vc-section vc-paintings" aria-labelledby="paintings-title">
     <h2 id="paintings-title">Paintings</h2>
-
-    <!-- Drop images into /assets/paintings and update src & alt -->
     <div class="vc-gallery">
       <figure class="vc-tile">
-        <img src="assets/paintings/painting-01.jpg" alt="Permutation — Oil on paper" loading="lazy" />
-        <figcaption>Permutation — Oil on paper</figcaption>
+        <img src="assets/paintings/Distinct_Stereotypes_and_the_Chash_2025.jpg" alt="Permutation — Oil on paper" loading="lazy" />
+        <figcaption>Permutation — Oil on canvas</figcaption>
       </figure>
       <figure class="vc-tile">
-        <img src="assets/paintings/painting-02.jpg" alt="Transportation — Acrylic on paper" loading="lazy" />
-        <figcaption>Transportation — Acrylic on paper</figcaption>
+        <img src="assets/paintings/Golden_Gaze_Silent_Echo_2025.jpg" alt="Transportation — Acrylic on paper" loading="lazy" />
+        <figcaption>Transportation — Acrylic on cardboard</figcaption>
       </figure>
       <figure class="vc-tile">
-        <img src="assets/paintings/painting-03.jpg" alt="Resting — Mixed media" loading="lazy" />
-        <figcaption>Resting — Mixed media</figcaption>
+        <img src="assets/paintings/I_Permutare_2025.jpg" alt="Resting — Mixed media" loading="lazy" />
+        <figcaption>Resting — Oil on canvas</figcaption>
       </figure>
-      <!-- add more <figure class="vc-tile">...</figure> as needed -->
+      <figure class="vc-tile">
+        <img src="assets/paintings/II_Transportation_2025.jpg alt="Flux — Oil on paper" loading="lazy" />
+        <figcaption>Flux — Oil on paper</figcaption>
+      </figure>
+      <figure class="vc-tile">
+        <img src="assets/paintings/Cemiterio_2025.jpg" alt="Phase — Acrylic on paper" loading="lazy" />
+        <figcaption>Phase — Acrylic on paper</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -79,9 +84,7 @@
   </footer>
 
   <script>
-    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
-    // Smooth scroll
     document.documentElement.style.scrollBehavior = 'smooth';
   </script>
 </body>
