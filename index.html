@@ -5,87 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vitor Cunha</title>
   <meta name="description" content="Vitor Cunha — Research & Paintings">
-  <meta name="color-scheme" content="light dark">
-  <link rel="stylesheet" href="assets/style.css?v=2">
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="assets/style.css?v=3">
 </head>
-
-<body>
-  <!-- Fixed Header -->
-  <header class="vc-header" id="top">
-    <a href="#top" class="vc-name" aria-label="Home">Vitor Cunha</a>
+<body class="page page--landing">
+  <!-- Fixed Header (never scrolls) -->
+  <header class="vc-header" role="banner">
+    <a class="vc-name" href="index.html" aria-label="Home">Vitor Cunha</a>
   </header>
 
-  <!-- Landing Split -->
-  <section class="vc-landing" aria-label="Landing">
-    <a class="vc-panel vc-left" href="#research" aria-label="Go to Research">
+  <!-- Split Landing -->
+  <main class="vc-landing" role="main" aria-label="Landing choices">
+    <a class="vc-panel vc-left" href="research.html" aria-label="Go to Research">
       <span class="vc-link">Research</span>
     </a>
-    <a class="vc-panel vc-right" href="#paintings" aria-label="Go to Paintings">
+    <a class="vc-panel vc-right" href="paintings.html" aria-label="Go to Paintings">
       <span class="vc-link">Paintings</span>
     </a>
-  </section>
-
-  <!-- Research Section -->
-  <section id="research" class="vc-section vc-research" aria-labelledby="research-title">
-    <h2 id="research-title">Research</h2>
-    <div class="vc-grid vc-grid-research">
-      <article class="vc-card">
-        <h3>Self-propelled droplets on wettability gradients</h3>
-        <p>Journal (2024)</p>
-        <p><a href="#">PDF</a> · <a href="#">DOI</a></p>
-      </article>
-      <article class="vc-card">
-        <h3>Thin-film adsorption with long-range interactions</h3>
-        <p>Preprint (2025)</p>
-        <p><a href="#">arXiv</a> · <a href="#">Slides</a></p>
-      </article>
-      <article class="vc-card">
-        <h3>Continuum–atomistic views of nanoscale phase change</h3>
-        <p>Thesis (2025)</p>
-        <p><a href="#">DOI</a></p>
-      </article>
-      <article class="vc-card">
-        <h3>NS-Korteweg solver</h3>
-        <p>Code & docs</p>
-        <p><a href="#">GitHub</a> · <a href="#">Docs</a></p>
-      </article>
-    </div>
-  </section>
-
-  <!-- Paintings Section -->
-  <section id="paintings" class="vc-section vc-paintings" aria-labelledby="paintings-title">
-    <h2 id="paintings-title">Paintings</h2>
-    <div class="vc-gallery">
-      <figure class="vc-tile">
-        <img src="assets/paintings/Distinct_Stereotypes_and_the_Chash_2025.jpg" alt="Permutation — Oil on paper" loading="lazy" />
-        <figcaption>Permutation — Oil on canvas</figcaption>
-      </figure>
-      <figure class="vc-tile">
-        <img src="assets/paintings/Golden_Gaze_Silent_Echo_2025.jpg" alt="Transportation — Acrylic on paper" loading="lazy" />
-        <figcaption>Transportation — Acrylic on cardboard</figcaption>
-      </figure>
-      <figure class="vc-tile">
-        <img src="assets/paintings/I_Permutare_2025.jpg" alt="Resting — Mixed media" loading="lazy" />
-        <figcaption>Resting — Oil on canvas</figcaption>
-      </figure>
-      <figure class="vc-tile">
-        <img src="assets/paintings/II_Transportation_2025.jpg alt="Flux — Oil on paper" loading="lazy" />
-        <figcaption>Flux — Oil on paper</figcaption>
-      </figure>
-      <figure class="vc-tile">
-        <img src="assets/paintings/Cemiterio_2025.jpg" alt="Phase — Acrylic on paper" loading="lazy" />
-        <figcaption>Phase — Acrylic on paper</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <footer class="vc-footer">
-    <small>© <span id="y"></span> Vitor Cunha</small>
-  </footer>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    document.documentElement.style.scrollBehavior = 'smooth';
-  </script>
+  </main>
 </body>
 </html>
