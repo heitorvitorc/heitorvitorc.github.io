@@ -140,3 +140,53 @@ a:hover{text-decoration:underline}
     --title-top: 8px;
   }
 }
+
+/* ===== New: top keywords + About link in banner ===== */
+.vc-toplinks {
+  position: absolute;
+  right: 20px;
+  top: calc(var(--title-top) + 6px);
+  text-align: right;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.vc-toplinks span,
+.vc-toplinks a {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--fg);
+}
+
+.vc-toplinks a:hover {
+  text-decoration: underline;
+}
+
+/* ===== New: email bottom-right ===== */
+.vc-email {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.vc-email a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.vc-email a:hover {
+  text-decoration: underline;
+}
+
+.vc-copy {
+  position: fixed;
+  left: 90px;
+  bottom: 6px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: var(--muted);
+  opacity: 0.5;
+}
