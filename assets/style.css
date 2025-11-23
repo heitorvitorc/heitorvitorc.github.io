@@ -33,7 +33,6 @@ a:hover{text-decoration:underline}
 /* ===== Fixed banner (very light gray at ~70% transparency), never scrolls ===== */
 .vc-banner{
   position:fixed; top:0; left:0; right:0; height:var(--banner-h); z-index:1000;
-  /* Light gray with ~70% transparency => alpha ≈ 0.3 (30% opacity) */
   background: rgba(246, 246, 246, 0.3);
   border-top:2px solid #000;
   border-bottom:2px solid #000;
@@ -57,12 +56,11 @@ a:hover{text-decoration:underline}
 }
 @media (max-width:900px){ .page--landing .vc-landing{ grid-template-columns:1fr; min-height:60svh; } }
 
-/* Remove the thin divider line between the two panels */
 .vc-panel{
   position:relative;
   display:flex; align-items:center; justify-content:center;
   color:inherit;
-  border:none;                      /* ← no line between Research / Paintings */
+  border:none;
 }
 .vc-link{
   font-weight:700; letter-spacing:.01em;
@@ -91,7 +89,7 @@ a:hover{text-decoration:underline}
 .vc-mosaic{ position:relative; }
 .vc-mosaic-grid{
   position:sticky;
-  top: calc(var(--banner-h) + 12px);  /* pins right under the banner */
+  top: calc(var(--banner-h) + 12px);
   padding:12px; display:grid; gap:12px; grid-template-columns:repeat(2, 1fr);
   background:#fff;
   border-left:1px solid rgba(0,0,0,.12);
@@ -141,7 +139,7 @@ a:hover{text-decoration:underline}
   }
 }
 
-/* ===== New: top keywords + About link in banner ===== */
+/* ===== New: top keywords + About link in banner (index only) ===== */
 .vc-toplinks {
   position: absolute;
   right: 20px;
@@ -163,7 +161,7 @@ a:hover{text-decoration:underline}
   text-decoration: underline;
 }
 
-/* ===== New: email bottom-right ===== */
+/* ===== Email bottom-right (index) ===== */
 .vc-email {
   position: fixed;
   right: 20px;
@@ -181,12 +179,48 @@ a:hover{text-decoration:underline}
   text-decoration: underline;
 }
 
+/* ===== Email top-right on inner pages ===== */
+.vc-email-top {
+  position: absolute;
+  right: 20px;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.vc-email-top a {
+  text-decoration: none;
+  color: var(--fg);
+}
+
+.vc-email-top a:hover {
+  text-decoration: underline;
+}
+
+/* Align differently for research vs paintings */
+.page--research .vc-email-top {
+  top: calc(var(--title-top) + 6px);           /* research keywords height */
+}
+
+.page--paintings .vc-email-top {
+  top: calc(var(--title-top) + 6px + 22px);    /* slightly lower, painting keywords height */
+}
+
+/* ===== Copyright footer (bottom-left) ===== */
 .vc-copy {
   position: fixed;
-  left: 90px;
-  bottom: 6px;
-  transform: translateX(-50%);
+  left: 20px;
+  bottom: 20px;
   font-size: 14px;
+  font-weight: 600;
   color: var(--muted);
-  opacity: 0.5;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* Paintings page: white, fully opaque */
+.page--paintings .vc-copy {
+  color: #ffffff;
+  opacity: 1;
+  z-index: 10000;
 }
